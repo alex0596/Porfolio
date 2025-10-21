@@ -1,0 +1,259 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Light theme - luminous and clean */
+    --background: 200 20% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 189 94% 43%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 200 18% 92%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 200 18% 92%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 189 75% 75%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 200 18% 88%;
+    --input: 200 18% 88%;
+    --ring: 189 94% 43%;
+
+    --radius: 1rem;
+
+    /* Water effect colors */
+    --water-primary: 189 94% 43%;
+    --water-secondary: 200 85% 65%;
+    --water-accent: 189 75% 75%;
+    
+    /* Glassmorphism */
+    --glass-bg: 0 0% 100%;
+    --glass-border: 200 18% 88%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5% 26%;
+    --sidebar-primary: 240 6% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 5% 96%;
+    --sidebar-accent-foreground: 240 6% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 189 94% 43%;
+  }
+
+  .dark {
+    /* Dark theme - elegant and glossy */
+    --background: 222 47% 4%;
+    --foreground: 200 20% 98%;
+
+    --card: 220 40% 8%;
+    --card-foreground: 200 20% 98%;
+
+    --popover: 220 40% 8%;
+    --popover-foreground: 200 20% 98%;
+
+    --primary: 189 94% 43%;
+    --primary-foreground: 222 47% 4%;
+
+    --secondary: 220 40% 12%;
+    --secondary-foreground: 200 20% 98%;
+
+    --muted: 220 40% 12%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 189 75% 55%;
+    --accent-foreground: 200 20% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 200 20% 98%;
+
+    --border: 220 40% 15%;
+    --input: 220 40% 15%;
+    --ring: 189 94% 43%;
+
+    /* Water effect colors - darker */
+    --water-primary: 189 94% 43%;
+    --water-secondary: 200 85% 35%;
+    --water-accent: 189 75% 45%;
+    
+    /* Glassmorphism dark */
+    --glass-bg: 220 40% 8%;
+    --glass-border: 220 40% 15%;
+
+    --sidebar-background: 220 40% 6%;
+    --sidebar-foreground: 200 20% 95%;
+    --sidebar-primary: 189 94% 43%;
+    --sidebar-primary-foreground: 220 47% 4%;
+    --sidebar-accent: 220 40% 10%;
+    --sidebar-accent-foreground: 200 20% 95%;
+    --sidebar-border: 220 40% 12%;
+    --sidebar-ring: 189 94% 43%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground overflow-x-hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  /* Glassmorphism utility */
+  .glass {
+    background: hsla(var(--glass-bg) / 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid hsla(var(--glass-border) / 0.3);
+  }
+
+  /* Water gradient animation */
+  @keyframes water-flow {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .water-gradient {
+    background: linear-gradient(
+      -45deg,
+      hsl(var(--water-primary)),
+      hsl(var(--water-secondary)),
+      hsl(var(--water-accent)),
+      hsl(var(--water-primary))
+    );
+    background-size: 400% 400%;
+    animation: water-flow 15s ease infinite;
+  }
+
+  /* Ripple effect */
+  @keyframes ripple {
+    0% {
+      transform: scale(0);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, hsla(var(--water-primary) / 0.4) 0%, transparent 70%);
+    animation: ripple 0.8s ease-out;
+    pointer-events: none;
+  }
+
+  /* Rain effect */
+  @keyframes rain-fall {
+    0% {
+      transform: translateY(-100vh);
+    }
+    100% {
+      transform: translateY(100vh);
+    }
+  }
+
+  .rain-drop {
+    position: absolute;
+    top: -10px;
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, hsla(var(--water-primary) / 0.6), transparent);
+    animation: rain-fall 1s linear;
+    pointer-events: none;
+  }
+
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Loading bar animation */
+  @keyframes loading {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+
+  .loading-bar {
+    animation: loading 2s ease-in-out;
+  }
+
+  /* Fade in animations */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in-up {
+    animation: fade-in-up 0.6s ease-out;
+  }
+
+  /* Float animation */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Pulse glow */
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsla(var(--primary) / 0.4);
+    }
+    50% {
+      box-shadow: 0 0 40px hsla(var(--primary) / 0.6);
+    }
+  }
+
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+}
