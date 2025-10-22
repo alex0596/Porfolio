@@ -32,9 +32,47 @@ const WaterBackground = () => {
     const createRainDrop = () => {
       const drop = document.createElement("div");
       drop.className = "rain-drop";
+      // position across the screen
       drop.style.left = `${Math.random() * 100}%`;
-      drop.style.animationDuration = `${Math.random() * 0.5 + 0.5}s`;
-      drop.style.opacity = `${Math.random() * 0.3 + 0.1}`;
+      // much slower and varied durations so the rain falls noticeably slower
+      const duration = Math.random() * 1.2 + 1.6; // ~1.6s - 2.8s
+      drop.style.animationDuration = `${duration}s`;
+      // make drops more visible: higher minimum opacity
+      drop.style.opacity = `${Math.random() * 0.4 + 0.5}`;
+      // randomize thickness and length a bit (JS overrides defaults)
+      const width = Math.random() * 2 + 2; // 2-4px
+      const height = Math.random() * 70 + 70; // 70-140px
+      drop.style.width = `${width}px`;
+      drop.style.height = `${height}px`;
+
+      // when the drop animation ends (reaches bottom), spawn a splash
+      const handleAnimationEnd = () => {
+        // compute left in pixels to position splash precisely
+        const leftVal = drop.style.left || "0%";
+        let leftPx = 0;
+        if (leftVal.endsWith("%")) {
+          const pct = parseFloat(leftVal) || 0;
+          leftPx = (pct / 100) * window.innerWidth;
+        } else if (leftVal.endsWith("px")) {
+          leftPx = parseFloat(leftVal) || 0;
+        }
+
+        const splash = document.createElement("div");
+        splash.className = "rain-splash";
+        // position splash slightly above bottom so it's visible
+        splash.style.left = `${leftPx - 6}px`;
+        splash.style.top = `${window.innerHeight - 12}px`;
+
+        rainRef.current?.appendChild(splash);
+
+        // remove splash after its animation
+        setTimeout(() => splash.remove(), 600);
+
+        // cleanup drop
+        drop.removeEventListener("animationend", handleAnimationEnd);
+        drop.remove();
+      };
+      drop.addEventListener("animationend", handleAnimationEnd);
 
       rainRef.current?.appendChild(drop);
 
@@ -43,8 +81,9 @@ const WaterBackground = () => {
       }, 1000);
     };
 
-    const interval = setInterval(createRainDrop, 50);
-    return () => clearInterval(interval);
+    // spawn drops at a reasonable density; slower drops + denser spawn
+    const interval = setInterval(createRainDrop, 28);
+  return () => clearInterval(interval);
   }, []);
 
   return (
