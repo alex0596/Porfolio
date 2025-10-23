@@ -9,20 +9,20 @@ const Contact = () => {
     {
       icon: Mail,
       label: t("contact.email"),
-      value: "alejandro@buendia.dev",
-      link: "mailto:alejandro@buendia.dev",
+      value: "alejandrobuendiacruz@gmail.com",
+      link: "mailto:alejandrobuendiacruz@gmail.com",
     },
     {
       icon: Github,
       label: t("contact.github"),
       value: "github.com/alejandro-buendia",
-      link: "https://github.com",
+      link: "https://github.com/alex0596",
     },
     {
       icon: Linkedin,
       label: t("contact.linkedin"),
       value: "linkedin.com/in/alejandro-buendia",
-      link: "https://linkedin.com",
+      link: "https://www.linkedin.com/in/alejandro-buendia-cruz/",
     },
   ];
 

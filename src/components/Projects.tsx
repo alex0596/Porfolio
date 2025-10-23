@@ -21,7 +21,7 @@ const Projects = () => {
       description: t("projects.project2.desc"),
       image: projectWeb,
       technologies: ["JavaScript", "HTML5", "CSS"],
-      link: "http://restaurantebarrio.rf.gd/?i=1",
+      link: "https://alejandrobc.com/Restaurante",
     },
     {
       title: t("projects.project3.title"),
